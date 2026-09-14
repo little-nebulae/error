@@ -1,10 +1,16 @@
 import { z } from "zod";
 
+export const ErrorMetaSchema = z.union([
+  z.record(z.string(), z.json()),
+  z.null(),
+]);
+
 export function FlatErrorObjectSchema<TCode extends string>(code: TCode) {
   return z.object({
-    name: z.string().min(1),
-    message: z.string().min(1),
+    name: z.string(),
+    message: z.string(),
     code: z.literal(code),
+    meta: ErrorMetaSchema,
   });
 }
 export type FlatErrorObject<TCode extends string> = z.infer<
@@ -19,6 +25,7 @@ export function NestedErrorObjectSchema<TCode extends string>(code: TCode) {
       cause: z.json(),
       stack: z.string(),
       code: z.literal(code),
+      meta: ErrorMetaSchema,
     })
     .catchall(z.json());
 }

@@ -33,4 +33,12 @@ describe("BaseErrorType should have property", () => {
       .toHaveProperty("code")
       .toEqualTypeOf<ErrorCode>();
   });
+  test("meta", () => {
+    expectTypeOf<BaseErrorType<string>>().toHaveProperty("meta").toBeNull();
+
+    const metadata = { format: "json" };
+    expectTypeOf<BaseErrorType<string, TypeError, typeof metadata>>()
+      .toHaveProperty("meta")
+      .toMatchObjectType<typeof metadata>();
+  });
 });
