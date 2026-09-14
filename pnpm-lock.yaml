@@ -187,6 +187,9 @@ importers:
       vitest:
         specifier: 5.0.0
         version: 5.0.0(@types/node@26.4.1)(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(tsx@4.23.13))
+      zod:
+        specifier: 4.6.4
+        version: 4.6.4
 
 packages:
 
@@ -1182,6 +1185,9 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
+  zod@4.6.4:
+    resolution: {integrity: sha512-AXSD6hvGdvRjajG/l1cC+d6IrhH+sjmPKtYeQdJIK8MFJl3LyClzS+o/YsVC+zQZPupAaeH5skwwm8YqYH7BqA==}
+
 snapshots:
 
   '@esbuild/aix-ppc64@0.28.2':
@@ -1818,3 +1824,5 @@ snapshots:
     dependencies:
       siginfo: 2.0.0
       stackback: 0.0.2
+
+  zod@4.6.4: {}
