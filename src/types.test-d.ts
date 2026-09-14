@@ -17,9 +17,10 @@ describe("BaseErrorType should have property", () => {
   });
   test("cause", () => {
     expectTypeOf<BaseErrorType<string>>().toHaveProperty("cause").toBeUnknown();
-    expectTypeOf<BaseErrorType<string, null>>()
+
+    expectTypeOf<BaseErrorType<string, TypeError>>()
       .toHaveProperty("cause")
-      .toBeNull();
+      .toEqualTypeOf<TypeError>();
   });
   test("stack", () => {
     expectTypeOf<BaseErrorType<string>>().toHaveProperty("stack").toBeString();
