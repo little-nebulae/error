@@ -1,3 +1,5 @@
+import type { ErrorObject, Options } from "serialize-error";
+
 export interface BaseErrorType<
   TCode extends string,
   TCause = unknown,
@@ -6,3 +8,6 @@ export interface BaseErrorType<
   stack: string;
   code: TCode;
 }
+
+export type DeepSerializeErrorOptions = Options;
+export type PlainErrorObject = ErrorObject;
