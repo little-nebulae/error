@@ -1,9 +1,9 @@
-import type { BaseErrorType } from "@/types";
+import type { BaseErrorMeta, BaseErrorType } from "@/types";
 
 export abstract class BaseError<
   TCode extends string,
   TCause = unknown,
-  TMeta extends Record<string, unknown> | null = null,
+  TMeta extends BaseErrorMeta = null,
 >
   extends Error
   implements BaseErrorType<TCode, TCause, TMeta>

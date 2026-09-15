@@ -1,7 +1,9 @@
+export type BaseErrorMeta = Record<string, unknown> | null;
+
 export interface BaseErrorType<
   TCode extends string,
   TCause = unknown,
-  TMeta extends Record<string, unknown> | null = null,
+  TMeta extends BaseErrorMeta = null,
 > extends Error {
   cause: TCause;
   code: TCode;
