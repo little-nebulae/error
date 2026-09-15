@@ -23,7 +23,7 @@ describe("BaseErrorType should have property", () => {
       .toEqualTypeOf<TypeError>();
   });
   test("stack", () => {
-    expectTypeOf<BaseErrorType<string>>().toHaveProperty("stack").toBeString();
+    expectTypeOf<BaseErrorType<string>>().toHaveProperty("stack");
   });
   test("code", () => {
     expectTypeOf<BaseErrorType<string>>().toHaveProperty("code").toBeString();

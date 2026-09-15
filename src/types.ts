@@ -6,7 +6,6 @@ export interface BaseErrorType<
   TMeta extends Record<string, unknown> | null = null,
 > extends Error {
   cause: TCause;
-  stack: string;
   code: TCode;
   meta: TMeta;
 }
