@@ -12,9 +12,6 @@
     "fix": "pnpm run lint:fix && pnpm run fmt",
     "test": "vitest run"
   },
-  "dependencies": {
-    "serialize-error": "13.0.1"
-  },
   "devDependencies": {
     "@types/node": "26.4.1",
     "oxfmt": "0.67.0",
