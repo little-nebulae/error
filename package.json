@@ -1,8 +1,12 @@
 {
   "name": "@little-nebulae/error",
   "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "start": "tsx --env-file-if-exists=.env.local src/index.ts",
+    "build": "tsdown",
     "try": "tsx src/try.ts",
     "fmt": "oxfmt --disable-nested-config",
     "fmt:check": "oxfmt --check --disable-nested-config",
