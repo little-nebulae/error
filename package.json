@@ -1,6 +1,6 @@
 {
   "name": "@little-nebulae/error",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "files": [
     "dist"
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsdown",
+    "publish": "pnpm publish --access public",
     "try": "tsx src/try.ts",
     "fmt": "oxfmt --disable-nested-config",
     "fmt:check": "oxfmt --check --disable-nested-config",
