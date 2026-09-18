@@ -1,11 +1,14 @@
-import { isError } from "@/helpers/is-error";
+import type { Branded } from "@little-nebulae/type-utils";
 
-export function isAbortError(value: unknown): value is Error {
+export type AbortError = Branded<Error, "AbortError">;
+
+export function isAbortError(error: Error): error is AbortError {
+  if (error.name === "AbortError") {
+    return true;
+  }
   if (
-    isError(value) &&
-    (value.name === "AbortError" ||
-      (Object.hasOwn(value, "code") &&
-        (value as Error & { code: string }).code === "ABORT_ERR"))
+    Object.hasOwn(error, "code") &&
+    (error as Error & { code: string }).code === "ABORT_ERR"
   ) {
     return true;
   }

@@ -165,6 +165,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@little-nebulae/type-utils':
+        specifier: 1.1.0
+        version: 1.1.0
     devDependencies:
       '@arethetypeswrong/core':
         specifier: 0.18.5
@@ -374,6 +378,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@little-nebulae/type-utils@1.1.0':
+    resolution: {integrity: sha512-5lP2hlwl1jWBCx5BMvr+7KbOf4//lcTUt74OeOymjyKTwkrrYcnss252otx/MjyvAwzYfoTeJUEC5WX/RLrsyw==}
 
   '@loaderkit/resolve@1.0.6':
     resolution: {integrity: sha512-G8FdIoF5CypfwmD9rl8BXod5HDn8JqB0CCNBXDTaRZ+yRYhARrrSToX1zg1zy9jX3zLqigsELwhT4gNtkdQAUg==}
@@ -1610,6 +1617,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
+
+  '@little-nebulae/type-utils@1.1.0': {}
 
   '@loaderkit/resolve@1.0.6':
     dependencies:

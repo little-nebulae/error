@@ -1,3 +1,4 @@
+import type { AbortError } from "@/helpers/is-abort-error";
 import type { BaseErrorMeta } from "@/types";
 
 import { BaseError } from "@/classes/base";
@@ -7,7 +8,7 @@ export type AbortedErrorCode = typeof ABORTED_ERROR_CODE;
 
 export class AbortedError<TMeta extends BaseErrorMeta = null> extends BaseError<
   AbortedErrorCode,
-  Error,
+  AbortError,
   TMeta
 > {
   readonly name = "AbortedError";
