@@ -1,3 +1,5 @@
+// oxlint-disable vitest/no-conditional-expect
+
 import { readFile } from "node:fs/promises";
 import { describe, expect, test } from "vitest";
 
@@ -18,9 +20,7 @@ describe("isAbortError function should succeed when", async () => {
       controller.abort();
       await readPromise;
     } catch (error) {
-      // oxlint-disable-next-line vitest/no-conditional-expect
       expect.assert(isError(error) === true);
-      // oxlint-disable-next-line vitest/no-conditional-expect
       expect(isAbortError(error)).toBe(true);
     }
   });
