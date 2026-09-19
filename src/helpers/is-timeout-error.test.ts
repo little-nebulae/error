@@ -17,7 +17,9 @@ describe("isTimeoutError function should succeed when", async () => {
       expect.fail("Expected readFile to throw");
     } catch (error) {
       assert(error instanceof Error);
-      expect(isTimeoutError(error.cause)).toBe(true);
+      const originalError = error.cause;
+      assert(isTimeoutError(originalError));
+      expect(originalError.cause).toBeUndefined();
     }
   });
 });
