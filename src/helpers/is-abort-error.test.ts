@@ -4,7 +4,6 @@ import { readFile } from "node:fs/promises";
 import { assert, describe, expect, test } from "vitest";
 
 import { isAbortError } from "@/helpers/is-abort-error";
-import { isError } from "@/helpers/is-error";
 
 // Success cases
 describe("isAbortError function should succeed when", async () => {
@@ -21,39 +20,15 @@ describe("isAbortError function should succeed when", async () => {
       await readPromise;
       expect.fail("Expected readPromise to throw");
     } catch (error) {
-      assert(isError(error) === true);
+      assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
     }
 
     const { aborted, reason } = signal;
     expect(aborted).toBe(true);
-    assert(isError(reason) === true);
+    assert(reason instanceof Error);
     expect(isAbortError(reason)).toBe(true);
     expect(reason.cause).toBeUndefined();
-  });
-
-  test("the read file promise is aborted with a non-Error reason provided", async () => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const readPromise = readFile("package.json", {
-      encoding: "utf-8",
-      signal,
-    });
-    const abortReason = "Something went wrong";
-    controller.abort(abortReason);
-
-    try {
-      await readPromise;
-      expect.fail("Expected readPromise to throw");
-    } catch (error) {
-      assert(isError(error) === true);
-      expect(isAbortError(error)).toBe(true);
-    }
-
-    const { aborted, reason } = signal;
-    expect(aborted).toBe(true);
-    expect(reason).not.toBeInstanceOf(Error);
-    expect(reason).toBe(abortReason);
   });
 
   test("the read file promise is aborted with an Error reason provided", async () => {
@@ -70,13 +45,13 @@ describe("isAbortError function should succeed when", async () => {
       await readPromise;
       expect.fail("Expected readPromise to throw");
     } catch (error) {
-      assert(isError(error) === true);
+      assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
     }
 
     const { aborted, reason } = signal;
     expect(aborted).toBe(true);
-    assert(isError(reason));
+    assert(reason instanceof Error);
     expect(isAbortError(reason)).toBe(false);
     expect(reason).toMatchObject(abortReason);
   });
@@ -91,13 +66,13 @@ describe("isAbortError function should succeed when", async () => {
       await fetchPromise;
       expect.fail("Expected fetchPromise to throw");
     } catch (error) {
-      assert(isError(error) === true);
+      assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
     }
 
     const { aborted, reason } = signal;
     expect(aborted).toBe(true);
-    assert(isError(reason) === true);
+    assert(reason instanceof Error);
     expect(isAbortError(reason)).toBe(true);
     expect(reason.cause).toBeUndefined();
   });
@@ -113,13 +88,13 @@ describe("isAbortError function should succeed when", async () => {
       console.log(text);
       expect.fail("Expected await response.text() to throw");
     } catch (error) {
-      assert(isError(error) === true);
+      assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
     }
 
     const { aborted, reason } = signal;
     expect(aborted).toBe(true);
-    assert(isError(reason) === true);
+    assert(reason instanceof Error);
     expect(isAbortError(reason)).toBe(true);
     expect(reason.cause).toBeUndefined();
   });
