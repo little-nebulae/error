@@ -126,4 +126,26 @@ describe("isAbortError function should succeed when", async () => {
 });
 
 // Failure cases
-// describe("isAbortError function should fail when", async () => {});
+describe("isAbortError function should fail when", async () => {
+  test("the fetch promise is aborted with an Error reason provided", async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const fetchPromise = fetch("https://example.com", { signal });
+    const abortReason = new Error("Something went wrong");
+    controller.abort(abortReason);
+
+    try {
+      await fetchPromise;
+      expect.fail("Expected fetchPromise to throw");
+    } catch (error) {
+      assert(error instanceof Error);
+      expect(isAbortError(error)).toBe(false);
+    }
+
+    const { aborted, reason } = signal;
+    expect(aborted).toBe(true);
+    assert(reason instanceof Error);
+    expect(isAbortError(reason)).toBe(false);
+    expect(reason).toMatchObject(abortReason);
+  });
+});
