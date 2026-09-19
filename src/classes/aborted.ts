@@ -6,13 +6,12 @@ import { BaseError } from "@/classes/base";
 export const ABORTED_ERROR_CODE = "ABORTED_ERROR";
 export type AbortedErrorCode = typeof ABORTED_ERROR_CODE;
 
-export type AbortedErrorCause = AbortError | { aborted: true; reason: unknown };
+export type AbortedErrorCause = AbortError | { reason: unknown };
 
-export class AbortedError<TMeta extends BaseErrorMeta = null> extends BaseError<
-  AbortedErrorCode,
-  AbortedErrorCause,
-  TMeta
-> {
+export class AbortedError<
+  TCause extends AbortedErrorCause,
+  TMeta extends BaseErrorMeta = null,
+> extends BaseError<AbortedErrorCode, TCause, TMeta> {
   readonly name = "AbortedError";
   readonly code = ABORTED_ERROR_CODE;
 }
