@@ -31,31 +31,6 @@ describe("isAbortError function should succeed when", async () => {
     expect(reason.cause).toBeUndefined();
   });
 
-  test("the read file promise is aborted with an Error reason provided", async () => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const readPromise = readFile("package.json", {
-      encoding: "utf-8",
-      signal,
-    });
-    const abortReason = new Error("Something went wrong");
-    controller.abort(abortReason);
-
-    try {
-      await readPromise;
-      expect.fail("Expected readPromise to throw");
-    } catch (error) {
-      assert(error instanceof Error);
-      expect(isAbortError(error)).toBe(true);
-    }
-
-    const { aborted, reason } = signal;
-    expect(aborted).toBe(true);
-    assert(reason instanceof Error);
-    expect(isAbortError(reason)).toBe(false);
-    expect(reason).toMatchObject(abortReason);
-  });
-
   test("the fetch promise is aborted with no reason provided", async () => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -115,6 +90,7 @@ describe("isAbortError function should fail when", async () => {
     } catch (error) {
       assert(error instanceof Error);
       expect(isAbortError(error)).toBe(false);
+      expect(error).toMatchObject(abortReason);
     }
 
     const { aborted, reason } = signal;
@@ -123,4 +99,55 @@ describe("isAbortError function should fail when", async () => {
     expect(isAbortError(reason)).toBe(false);
     expect(reason).toMatchObject(abortReason);
   });
+
+  test("the request is aborted with a non-AbortError Error reason provided after the fetch() call has been fulfilled but before the response body has been read", async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const response = await fetch("https://example.com", { signal });
+    const abortReason = new Error("Something went wrong");
+    controller.abort(abortReason);
+
+    try {
+      const text = await response.text();
+      console.log(text);
+      expect.fail("Expected await response.text() to throw");
+    } catch (error) {
+      assert(error instanceof Error);
+      expect(isAbortError(error)).toBe(false);
+      expect(error).toMatchObject(abortReason);
+    }
+
+    const { aborted, reason } = signal;
+    expect(aborted).toBe(true);
+    assert(reason instanceof Error);
+    expect(isAbortError(reason)).toBe(false);
+    expect(reason).toMatchObject(abortReason);
+  });
+});
+
+// Other cases
+test("isAbortError function should succeed when passed the error thrown by an aborted read file promise but should fail when passed the abort reason because the abort reason is a non-AbortError Error", async () => {
+  const controller = new AbortController();
+  const signal = controller.signal;
+  const readPromise = readFile("package.json", {
+    encoding: "utf-8",
+    signal,
+  });
+  const abortReason = new Error("Something went wrong");
+  controller.abort(abortReason);
+
+  try {
+    await readPromise;
+    expect.fail("Expected readPromise to throw");
+  } catch (error) {
+    assert(error instanceof Error);
+    expect(isAbortError(error)).toBe(true);
+    expect(error.cause).toMatchObject(abortReason);
+  }
+
+  const { aborted, reason } = signal;
+  expect(aborted).toBe(true);
+  assert(reason instanceof Error);
+  expect(isAbortError(reason)).toBe(false);
+  expect(reason).toMatchObject(abortReason);
 });
