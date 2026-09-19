@@ -22,6 +22,11 @@ describe("isAbortError function should succeed when", async () => {
     } catch (error) {
       assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
+
+      const originalError = error.cause;
+      assert(originalError instanceof Error);
+      expect(isAbortError(originalError)).toBe(true);
+      expect(originalError.cause).toBeUndefined();
     }
 
     const { aborted, reason } = signal;
@@ -43,6 +48,7 @@ describe("isAbortError function should succeed when", async () => {
     } catch (error) {
       assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
+      expect(error.cause).toBeUndefined();
     }
 
     const { aborted, reason } = signal;
@@ -65,6 +71,7 @@ describe("isAbortError function should succeed when", async () => {
     } catch (error) {
       assert(error instanceof Error);
       expect(isAbortError(error)).toBe(true);
+      expect(error.cause).toBeUndefined();
     }
 
     const { aborted, reason } = signal;
