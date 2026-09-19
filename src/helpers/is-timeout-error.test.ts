@@ -37,3 +37,19 @@ describe("isTimeoutError function should succeed when", async () => {
     }
   });
 });
+
+// Failure cases
+describe("isTimeoutError function should fail when", async () => {
+  test("passed the thrown exception of a timed out read file", async () => {
+    try {
+      const text = await readFile("package.json", {
+        encoding: "utf-8",
+        signal: AbortSignal.timeout(1),
+      });
+      console.log(text);
+      expect.fail("Expected readFile to throw");
+    } catch (error) {
+      expect(isTimeoutError(error)).toBe(false);
+    }
+  });
+});
