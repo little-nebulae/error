@@ -22,4 +22,18 @@ describe("isTimeoutError function should succeed when", async () => {
       expect(originalError.cause).toBeUndefined();
     }
   });
+
+  test("passed the thrown exception of a timed out fetch call", async () => {
+    try {
+      const response = await fetch("https://example.com", {
+        signal: AbortSignal.timeout(1),
+      });
+      const text = await response.text();
+      console.log(text);
+      expect.fail("Expected fetch to throw");
+    } catch (error) {
+      assert(isTimeoutError(error));
+      expect(error.cause).toBeUndefined();
+    }
+  });
 });
