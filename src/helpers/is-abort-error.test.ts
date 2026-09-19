@@ -8,7 +8,7 @@ import { isError } from "@/helpers/is-error";
 
 // Success cases
 describe("isAbortError function should succeed when", async () => {
-  test("operation was aborted with no reason provided", async () => {
+  test("the read file promise is aborted with no reason provided", async () => {
     const controller = new AbortController();
     const signal = controller.signal;
     const readPromise = readFile("package.json", {
@@ -20,6 +20,27 @@ describe("isAbortError function should succeed when", async () => {
     try {
       await readPromise;
       expect.fail("Expected readPromise to throw");
+    } catch (error) {
+      assert(isError(error) === true);
+      expect(isAbortError(error)).toBe(true);
+    }
+
+    const { aborted, reason } = signal;
+    expect(aborted).toBe(true);
+    assert(isError(reason) === true);
+    expect(isAbortError(reason)).toBe(true);
+    expect(reason.cause).toBeUndefined();
+  });
+
+  test("the fetch promise is aborted with no reason provided", async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const fetchPromise = fetch("https://example.com", { signal });
+    controller.abort();
+
+    try {
+      await fetchPromise;
+      expect.fail("Expected fetchPromise to throw");
     } catch (error) {
       assert(isError(error) === true);
       expect(isAbortError(error)).toBe(true);
