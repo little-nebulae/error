@@ -6,7 +6,7 @@ import { BaseError } from "@/classes/base";
 export const ABORTED_ERROR_CODE = "ABORTED_ERROR";
 export type AbortedErrorCode = typeof ABORTED_ERROR_CODE;
 
-export type AbortedErrorCause = AbortError | { reason: unknown };
+export type AbortedErrorCause = AbortError | { reason: AbortSignal["reason"] };
 
 export class AbortedError<
   TCause extends AbortedErrorCause,
