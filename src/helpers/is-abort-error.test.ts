@@ -32,6 +32,30 @@ describe("isAbortError function should succeed when", async () => {
     expect(reason.cause).toBeUndefined();
   });
 
+  test("the read file promise is aborted with a non-Error reason provided", async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const readPromise = readFile("package.json", {
+      encoding: "utf-8",
+      signal,
+    });
+    const abortReason = "Something went wrong";
+    controller.abort(abortReason);
+
+    try {
+      await readPromise;
+      expect.fail("Expected readPromise to throw");
+    } catch (error) {
+      assert(isError(error) === true);
+      expect(isAbortError(error)).toBe(true);
+    }
+
+    const { aborted, reason } = signal;
+    expect(aborted).toBe(true);
+    expect(reason).not.toBeInstanceOf(Error);
+    expect(reason).toBe(abortReason);
+  });
+
   test("the fetch promise is aborted with no reason provided", async () => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -75,3 +99,6 @@ describe("isAbortError function should succeed when", async () => {
     expect(reason.cause).toBeUndefined();
   });
 });
+
+// Failure cases
+// describe("isAbortError function should fail when", async () => {});
