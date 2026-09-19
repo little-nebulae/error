@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "0.18.5",
+    "@little-nebulae/type-utils": "1.1.0",
     "@types/node": "26.6.1",
     "oxfmt": "0.68.0",
     "oxlint": "1.83.0",
@@ -33,6 +34,9 @@
     "typescript": "7.0.2",
     "vitest": "5.0.1"
   },
+  "peerDependencies": {
+    "@little-nebulae/type-utils": "^1.1.0"
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -40,8 +44,5 @@
       "onFail": "warn"
     }
   },
-  "packageManager": "pnpm@12.4.2",
-  "dependencies": {
-    "@little-nebulae/type-utils": "1.1.0"
-  }
+  "packageManager": "pnpm@12.4.2"
 }
