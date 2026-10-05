@@ -1,4 +1,4 @@
-import type { Branded } from "@little-nebulae/type-utils";
+import type { Tagged } from "type-fest";
 
 import { isError } from "@/helpers/is/error";
 
@@ -8,7 +8,7 @@ export type AbortErrorName = typeof ABORT_ERROR_NAME;
 export const ABORT_ERROR_CODE = "ABORT_ERR";
 export type AbortErrorCode = typeof ABORT_ERROR_CODE;
 
-export type AbortError = Branded<Error, AbortErrorName>;
+export type AbortError = Tagged<Error, AbortErrorName>;
 
 export function isAbortError(value: unknown): value is AbortError {
   if (isError(value)) {
