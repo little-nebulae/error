@@ -1,4 +1,6 @@
-export type BaseErrorMeta = Record<string, unknown> | null;
+import type { UnknownRecord } from "type-fest";
+
+export type BaseErrorMeta = UnknownRecord | null;
 
 export interface BaseErrorType<
   TCode extends string,
