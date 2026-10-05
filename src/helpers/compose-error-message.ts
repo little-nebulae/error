@@ -1,3 +1,5 @@
+export const DEFAULT_FAILURE_REASON = "some unexpected error";
+
 export function composeErrorMessage<
   TOperation extends string,
   TReason extends string,
