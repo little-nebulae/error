@@ -1,6 +1,6 @@
 import type { Branded } from "@little-nebulae/type-utils";
 
-import { isError } from "@/helpers/is-error";
+import { isError } from "@/helpers/is/error";
 
 export const ABORT_ERROR_NAME = "AbortError";
 export type AbortErrorName = typeof ABORT_ERROR_NAME;

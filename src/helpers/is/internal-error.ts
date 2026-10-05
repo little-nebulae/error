@@ -1,4 +1,4 @@
-import { isError } from "@/helpers/is-error";
+import { isError } from "@/helpers/is/error";
 
 export const INTERNAL_ERROR_NAME = "InternalError";
 export type InternalErrorName = typeof INTERNAL_ERROR_NAME;
