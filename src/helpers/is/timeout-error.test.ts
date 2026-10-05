@@ -3,7 +3,7 @@
 import { readFile } from "node:fs/promises";
 import { assert, describe, expect, test } from "vitest";
 
-import { isTimeoutError } from "@/helpers/is-timeout-error";
+import { isTimeoutError } from "@/helpers/is/timeout-error";
 
 // Success cases
 describe("isTimeoutError function should succeed when", async () => {

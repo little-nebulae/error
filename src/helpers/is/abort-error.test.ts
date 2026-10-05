@@ -3,7 +3,7 @@
 import { readFile } from "node:fs/promises";
 import { assert, describe, expect, test } from "vitest";
 
-import { isAbortError } from "@/helpers/is-abort-error";
+import { isAbortError } from "@/helpers/is/abort-error";
 
 // Success cases
 describe("isAbortError function should succeed when", async () => {

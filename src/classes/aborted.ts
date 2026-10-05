@@ -1,4 +1,4 @@
-import type { AbortError } from "@/helpers/is-abort-error";
+import type { AbortError } from "@/helpers/is/abort-error";
 import type { BaseErrorMeta } from "@/types";
 
 import { BaseError } from "@/classes/base";

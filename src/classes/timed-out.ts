@@ -1,4 +1,4 @@
-import type { TimeoutError } from "@/helpers/is-timeout-error";
+import type { TimeoutError } from "@/helpers/is/timeout-error";
 import type { BaseErrorMeta } from "@/types";
 
 import { BaseError } from "@/classes/base";
