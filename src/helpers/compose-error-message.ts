@@ -1,14 +1,11 @@
 export const DEFAULT_FAILURE_REASON = "some unexpected error";
 
-export function composeErrorMessage<
-  TOperation extends string,
-  TReason extends string,
->({
+export function composeErrorMessage({
   operation,
-  reason,
+  reason = DEFAULT_FAILURE_REASON,
 }: {
-  operation: TOperation;
-  reason: TReason;
-}): `Failed to ${TOperation} due to ${TReason}.` {
+  operation: string;
+  reason?: string;
+}) {
   return `Failed to ${operation} due to ${reason}.`;
 }
