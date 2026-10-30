@@ -1,4 +1,4 @@
-export const DEFAULT_FAILURE_REASON = "some unexpected error";
+export const DEFAULT_FAILURE_REASON = "some unknown exception";
 
 export function composeErrorMessage({
   operation,
